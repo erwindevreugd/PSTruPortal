@@ -1,4 +1,4 @@
-function Send-Event {
+function Remove-Person {
     [CmdletBinding()]
     param (
         [Parameter(
@@ -18,17 +18,7 @@ function Send-Event {
         [Parameter(
             Mandatory=$true
         )]
-        [string]$Description,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [string]$DeviceDescription,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [string]$PersonDescription,
+        [int]$Id,
 
         [Parameter(
             ValueFromPipelineByPropertyName=$true
@@ -48,19 +38,20 @@ function Send-Event {
     }
     
     process {
-        $endPoint       = "api/events"
-        $method         = "POST"
+        $endPoint       = "api/persons"
+        $method         = "DELETE"
         $contentType    = "application/json"
         $uri            = "http" + $(if($UseSSL) { "s" }) + "://$($Host)/$($endPoint)"
+
+        if($Id) {
+            $uri = "$uri/$Id"
+        }
 
         $headers = @{
             Authorization=$SessionKey;
         }
         
         $body = @{
-            "description"=$Description;
-            "deviceDescription"=$DeviceDescription;
-            "personDescription"=$PersonDescription;
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"

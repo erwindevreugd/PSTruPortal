@@ -1,4 +1,4 @@
-function Send-Event {
+function Set-Person {
     [CmdletBinding()]
     param (
         [Parameter(
@@ -18,17 +18,22 @@ function Send-Event {
         [Parameter(
             Mandatory=$true
         )]
-        [string]$Description,
+        [int]$Id,
 
         [Parameter(
             Mandatory=$false
         )]
-        [string]$DeviceDescription,
+        [string]$FirstName = $null,
 
         [Parameter(
             Mandatory=$false
         )]
-        [string]$PersonDescription,
+        [string]$MiddleName = $null,
+
+        [Parameter(
+            Mandatory=$false
+        )]
+        [string]$LastName = $null,
 
         [Parameter(
             ValueFromPipelineByPropertyName=$true
@@ -48,19 +53,32 @@ function Send-Event {
     }
     
     process {
-        $endPoint       = "api/events"
-        $method         = "POST"
+        $endPoint       = "api/persons"
+        $method         = "PUT"
         $contentType    = "application/json"
         $uri            = "http" + $(if($UseSSL) { "s" }) + "://$($Host)/$($endPoint)"
+
+        if($Id) {
+            $uri = "$uri/$Id"
+        }
 
         $headers = @{
             Authorization=$SessionKey;
         }
         
         $body = @{
-            "description"=$Description;
-            "deviceDescription"=$DeviceDescription;
-            "personDescription"=$PersonDescription;
+        }
+
+        if($FirstName) {
+            $body.Add("firstname", $FirstName)
+        }
+
+        if($MiddleName) {
+            $body.Add("middlename", $MiddleName)
+        }
+
+        if($LastName) {
+            $body.Add("lastname", $LastName)
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"

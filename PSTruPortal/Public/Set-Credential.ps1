@@ -1,4 +1,4 @@
-function Send-Event {
+function Set-Credential {
     [CmdletBinding()]
     param (
         [Parameter(
@@ -18,17 +18,52 @@ function Send-Event {
         [Parameter(
             Mandatory=$true
         )]
-        [string]$Description,
+        [int]$Id,
+
+        [Parameter(
+            Mandatory=$true
+        )]
+        [int]$PersonId,
+
+        [Parameter(
+            Mandatory=$true
+        )]
+        [string]$CardNumber,
 
         [Parameter(
             Mandatory=$false
         )]
-        [string]$DeviceDescription,
+        [int]$IssueCode,
 
         [Parameter(
             Mandatory=$false
         )]
-        [string]$PersonDescription,
+        [int]$Pin,
+
+        [Parameter(
+            Mandatory=$false
+        )]
+        [string]$ActiveFrom,
+
+        [Parameter(
+            Mandatory=$false
+        )]
+        [string]$ActiveTo,
+
+        [Parameter(
+            Mandatory=$false
+        )]
+        [switch]$AntipassbackExempt,
+
+        [Parameter(
+            Mandatory=$false
+        )]
+        [switch]$ExtendedAccess,
+
+        [Parameter(
+            Mandatory=$false
+        )]
+        [int[]]$AccessLevels,
 
         [Parameter(
             ValueFromPipelineByPropertyName=$true
@@ -48,19 +83,50 @@ function Send-Event {
     }
     
     process {
-        $endPoint       = "api/events"
-        $method         = "POST"
+        $endPoint       = "api/credentials"
+        $method         = "PUT"
         $contentType    = "application/json"
         $uri            = "http" + $(if($UseSSL) { "s" }) + "://$($Host)/$($endPoint)"
+
+        if($Id) {
+            $uri = "$uri/$Id"
+        }
 
         $headers = @{
             Authorization=$SessionKey;
         }
         
         $body = @{
-            "description"=$Description;
-            "deviceDescription"=$DeviceDescription;
-            "personDescription"=$PersonDescription;
+            "personId"=$PersonId;
+            "cardNumber"=$CardNumber;
+        }
+
+        if($IssueCode) {
+            $body.Add("issueCode", $IssueCode)
+        }
+
+        if($Pin) {
+            $body.Add("pin", $Pin)
+        }
+
+        if($ActiveFrom) {
+            $body.Add("activeFrom", $ActiveFrom)
+        }
+
+        if($ActiveTo) {
+            $body.Add("activeTo", $ActiveTo)
+        }
+
+        if($AntipassbackExempt) {
+            $body.Add("antipassbackExempt", $AntipassbackExempt)
+        }
+
+        if($ExtendedAccess) {
+            $body.Add("extendedAccess", $ExtendedAccess)
+        }
+
+        if($AccessLevels) {
+            $body.Add("accessLevels", $AccessLevels)
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"

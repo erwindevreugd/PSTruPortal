@@ -1,4 +1,4 @@
-function Send-Event {
+function New-Person {
     [CmdletBinding()]
     param (
         [Parameter(
@@ -18,17 +18,17 @@ function Send-Event {
         [Parameter(
             Mandatory=$true
         )]
-        [string]$Description,
+        [string]$FirstName,
 
         [Parameter(
             Mandatory=$false
         )]
-        [string]$DeviceDescription,
+        [string]$MiddleName = $null,
 
         [Parameter(
-            Mandatory=$false
+            Mandatory=$true
         )]
-        [string]$PersonDescription,
+        [string]$LastName,
 
         [Parameter(
             ValueFromPipelineByPropertyName=$true
@@ -48,7 +48,7 @@ function Send-Event {
     }
     
     process {
-        $endPoint       = "api/events"
+        $endPoint       = "api/persons"
         $method         = "POST"
         $contentType    = "application/json"
         $uri            = "http" + $(if($UseSSL) { "s" }) + "://$($Host)/$($endPoint)"
@@ -58,9 +58,9 @@ function Send-Event {
         }
         
         $body = @{
-            "description"=$Description;
-            "deviceDescription"=$DeviceDescription;
-            "personDescription"=$PersonDescription;
+            "firstname"=$FirstName;
+            "middlename"=$MiddleName;
+            "lastname"=$LastName;
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"
