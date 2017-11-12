@@ -25,8 +25,11 @@ function Get-Input {
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
-        [Parameter()]
-        [int]$Id,
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$InputId,
 
         [Parameter()]
         [ValidateRange(1,250)]
@@ -52,8 +55,8 @@ function Get-Input {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($InputId) {
+            $uri = "$uri/$InputId"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"
@@ -70,7 +73,7 @@ function Get-Input {
         $response = Invoke-RestMethod @message
         $response | ForEach-Object {
             New-Object -TypeName PSObject -Property @{
-                Id=$_.id;
+                InputId=$_.id;
                 Name=$_.name;
                 State=$_.state;
             }

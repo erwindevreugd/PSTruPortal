@@ -25,16 +25,28 @@ function Get-Event {
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
-        [Parameter()]
-        [int]$Id,
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$EventId,
 
-        [Parameter()]
-        [int]$Type,
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$EventType,
 
-        [Parameter()]
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
         [int]$PersonId,
 
-        [Parameter()]
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
         [int]$DeviceId,
 
         [Parameter()]
@@ -73,8 +85,8 @@ function Get-Event {
             $query.Add("deviceId", $DeviceId)
         }
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($EventId) {
+            $uri = "$uri/$EventId"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"
@@ -97,8 +109,8 @@ function Get-Event {
         }
         $response | ForEach-Object {
             New-Object -TypeName PSObject -Property @{
-                Id=$_.id;
-                Type=$_.type;
+                EventId=$_.id;
+                EventType=$_.type;
                 Description=$_.description;
                 PersonId=$_.personId;
                 PersonName=$_.personName;

@@ -16,21 +16,6 @@ function Send-Event {
         [string]$SessionKey = $Script:SessionKey,
 
         [Parameter(
-            Mandatory=$true
-        )]
-        [string]$Description,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [string]$DeviceDescription,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [string]$PersonDescription,
-
-        [Parameter(
             ValueFromPipelineByPropertyName=$true
         )]
         [switch]$UseSSL = $Script:UseSSL,
@@ -38,7 +23,25 @@ function Send-Event {
         [Parameter(
             ValueFromPipelineByPropertyName=$true
         )]
-        [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors
+        [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
+        
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$Description,
+
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$DeviceDescription,
+
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$PersonDescription
     )
     
     begin {

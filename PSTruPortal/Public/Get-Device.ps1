@@ -25,8 +25,11 @@ function Get-Device {
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
-        [Parameter()]
-        [int]$Id,
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$DeviceId,
 
         [Parameter()]
         [ValidateRange(1,250)]
@@ -53,8 +56,8 @@ function Get-Device {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($DeviceId) {
+            $uri = "$uri/$DeviceId"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"
@@ -71,7 +74,7 @@ function Get-Device {
         $response = Invoke-RestMethod @message
         $response | ForEach-Object {
             New-Object -TypeName PSObject -Property @{
-                Id=$_.id;
+                DeviceId=$_.id;
                 Name=$_.name;
             }
         }

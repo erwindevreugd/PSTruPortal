@@ -25,8 +25,11 @@ function Get-UserDefinedField {
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
-        [Parameter()]
-        [int]$Id,
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$UserDefinedFieldId,
 
         [Parameter()]
         [ValidateRange(1,250)]
@@ -52,8 +55,8 @@ function Get-UserDefinedField {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($UserDefinedFieldId) {
+            $uri = "$uri/$UserDefinedFieldId"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"
@@ -70,7 +73,7 @@ function Get-UserDefinedField {
         $response = Invoke-RestMethod @message
         $response | ForEach-Object {
             New-Object -TypeName PSObject -Property @{
-                Id=$_.id;
+                UserDefinedFieldId=$_.id;
                 Name=$_.name;
                 Required=$_.required;
                 Secured=$_.secured;

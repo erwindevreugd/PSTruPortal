@@ -25,8 +25,11 @@ function Get-Reader {
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
-        [Parameter()]
-        [int]$Id,
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$ReaderId,
 
         [Parameter()]
         [ValidateRange(1,250)]
@@ -53,8 +56,8 @@ function Get-Reader {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($ReaderId) {
+            $uri = "$uri/$ReaderId"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"
@@ -71,7 +74,7 @@ function Get-Reader {
         $response = Invoke-RestMethod @message
         $response | ForEach-Object {
             New-Object -TypeName PSObject -Property @{
-                Id=$_.id;
+                ReaderId=$_.id;
                 Name=$_.name;
             }
         }

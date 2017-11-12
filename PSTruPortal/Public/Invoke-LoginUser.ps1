@@ -3,7 +3,8 @@ function Invoke-LoginUser {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingPlainTextForPassword", "")]
     param (
         [Parameter(
-            Mandatory=$true
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
         )]
         [string]$Host,
 

@@ -16,26 +16,6 @@ function Set-Person {
         [string]$SessionKey = $Script:SessionKey,
 
         [Parameter(
-            Mandatory=$true
-        )]
-        [int]$Id,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [string]$FirstName = $null,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [string]$MiddleName = $null,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [string]$LastName = $null,
-
-        [Parameter(
             ValueFromPipelineByPropertyName=$true
         )]
         [switch]$UseSSL = $Script:UseSSL,
@@ -43,7 +23,31 @@ function Set-Person {
         [Parameter(
             ValueFromPipelineByPropertyName=$true
         )]
-        [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors
+        [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
+
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$PersonId,
+
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$FirstName = $null,
+
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$MiddleName = $null,
+
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$LastName = $null
     )
     
     begin {
@@ -58,8 +62,8 @@ function Set-Person {
         $contentType    = "application/json"
         $uri            = "http" + $(if($UseSSL) { "s" }) + "://$($Host)/$($endPoint)"
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($PersonId) {
+            $uri = "$uri/$PersonId"
         }
 
         $headers = @{

@@ -16,11 +16,6 @@ function Remove-Person {
         [string]$SessionKey = $Script:SessionKey,
 
         [Parameter(
-            Mandatory=$true
-        )]
-        [int]$Id,
-
-        [Parameter(
             ValueFromPipelineByPropertyName=$true
         )]
         [switch]$UseSSL = $Script:UseSSL,
@@ -28,7 +23,13 @@ function Remove-Person {
         [Parameter(
             ValueFromPipelineByPropertyName=$true
         )]
-        [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors
+        [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
+        
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$PersonId
     )
     
     begin {
@@ -43,8 +44,8 @@ function Remove-Person {
         $contentType    = "application/json"
         $uri            = "http" + $(if($UseSSL) { "s" }) + "://$($Host)/$($endPoint)"
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($PersonId) {
+            $uri = "$uri/$PersonId"
         }
 
         $headers = @{

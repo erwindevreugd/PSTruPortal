@@ -16,21 +16,6 @@ function New-Person {
         [string]$SessionKey = $Script:SessionKey,
 
         [Parameter(
-            Mandatory=$true
-        )]
-        [string]$FirstName,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [string]$MiddleName = $null,
-
-        [Parameter(
-            Mandatory=$true
-        )]
-        [string]$LastName,
-
-        [Parameter(
             ValueFromPipelineByPropertyName=$true
         )]
         [switch]$UseSSL = $Script:UseSSL,
@@ -38,7 +23,25 @@ function New-Person {
         [Parameter(
             ValueFromPipelineByPropertyName=$true
         )]
-        [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors
+        [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
+        
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$FirstName,
+
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$MiddleName = $null,
+
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$LastName
     )
     
     begin {

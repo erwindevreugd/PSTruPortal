@@ -24,9 +24,12 @@ function Get-AccessLevel {
             ValueFromPipelineByPropertyName=$true
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
-
-        [Parameter()]
-        [int]$Id,
+        
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$AccessLevelId,
 
         [Parameter()]
         [ValidateRange(1,250)]
@@ -53,8 +56,8 @@ function Get-AccessLevel {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($AccessLevelId) {
+            $uri = "$uri/$AccessLevelId"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"
@@ -71,7 +74,7 @@ function Get-AccessLevel {
         $response = Invoke-RestMethod @message
         $response | ForEach-Object {
             New-Object -TypeName PSObject -Property @{
-                Id=$_.id;
+                AccessLevelId=$_.id;
                 Name=$_.name;
             }
         }

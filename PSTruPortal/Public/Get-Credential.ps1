@@ -25,10 +25,16 @@ function Get-Credential {
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
-        [Parameter()]
-        [int]$Id,
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$CredentialId,
 
-        [Parameter()]
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
         [int]$PersonId,
 
         [Parameter()]
@@ -56,8 +62,8 @@ function Get-Credential {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($CredentialIdId) {
+            $uri = "$uri/$CredentialId"
         }
 
         if($PersonId) {
@@ -78,11 +84,11 @@ function Get-Credential {
         $response = Invoke-RestMethod @message
         $response | ForEach-Object {
             New-Object -TypeName PSObject -Property @{
-                Id=$_.id;
+                CredentialId=$_.id;
                 ActiveFrom=$_.activeFrom;
                 ActiveTo=$_.activeTo;
                 AntipassbackExempt=$_.antipassbackExempt;
-                Cardnumber=$_.cardNumber;
+                CardNumber=$_.cardNumber;
                 AccessLevels=$_.accessLevels;
                 Pin=$_.pin;
                 PersonId=$_.PersonId;

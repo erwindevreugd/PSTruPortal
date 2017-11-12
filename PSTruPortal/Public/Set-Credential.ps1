@@ -16,56 +16,6 @@ function Set-Credential {
         [string]$SessionKey = $Script:SessionKey,
 
         [Parameter(
-            Mandatory=$true
-        )]
-        [int]$Id,
-
-        [Parameter(
-            Mandatory=$true
-        )]
-        [int]$PersonId,
-
-        [Parameter(
-            Mandatory=$true
-        )]
-        [string]$CardNumber,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [int]$IssueCode,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [int]$Pin,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [string]$ActiveFrom,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [string]$ActiveTo,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [switch]$AntipassbackExempt,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [switch]$ExtendedAccess,
-
-        [Parameter(
-            Mandatory=$false
-        )]
-        [int[]]$AccessLevels,
-
-        [Parameter(
             ValueFromPipelineByPropertyName=$true
         )]
         [switch]$UseSSL = $Script:UseSSL,
@@ -73,7 +23,67 @@ function Set-Credential {
         [Parameter(
             ValueFromPipelineByPropertyName=$true
         )]
-        [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors
+        [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
+        
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$CredentialId,
+
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$PersonId,
+
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$CardNumber,
+
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$IssueCode,
+
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$Pin,
+
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$ActiveFrom,
+
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string]$ActiveTo,
+
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [switch]$AntipassbackExempt,
+
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [switch]$ExtendedAccess,
+
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int[]]$AccessLevels
     )
     
     begin {
@@ -88,8 +98,8 @@ function Set-Credential {
         $contentType    = "application/json"
         $uri            = "http" + $(if($UseSSL) { "s" }) + "://$($Host)/$($endPoint)"
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($CredentialId) {
+            $uri = "$uri/$CredentialId"
         }
 
         $headers = @{

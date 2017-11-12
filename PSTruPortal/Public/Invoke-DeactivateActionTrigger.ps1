@@ -26,10 +26,10 @@ function Invoke-DeactivateActionTrigger {
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
         [Parameter(
-            ValueFromPipelineByPropertyName=$true,
-            Mandatory=$true
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
         )]
-        [int]$Id
+        [int]$ActionTriggerId
     )
     
     begin {
@@ -51,8 +51,8 @@ function Invoke-DeactivateActionTrigger {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id/execute?action=deactivation"
+        if($ActionTriggerId) {
+            $uri = "$uri/$ActionTriggerId/execute?action=deactivation"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"

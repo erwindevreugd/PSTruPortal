@@ -26,10 +26,10 @@ function Invoke-ActivateOutput {
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
         [Parameter(
-            ValueFromPipelineByPropertyName=$true,
-            Mandatory=$true
+            Mandatory=$true,
+            ValueFromPipelineByPropertyName=$true
         )]
-        [int]$Id
+        [int]$OutputId
     )
     
     begin {
@@ -51,8 +51,8 @@ function Invoke-ActivateOutput {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id/state?state=active"
+        if($OutputId) {
+            $uri = "$uri/$OutputId/state?state=active"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"

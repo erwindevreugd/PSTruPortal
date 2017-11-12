@@ -26,14 +26,14 @@ function Invoke-GrantAccess {
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
         [Parameter(
-            ValueFromPipelineByPropertyName=$true,
-            Mandatory=$true
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
         )]
-        [int]$Id,
+        [int]$DoorId,
 
         [Parameter(
-            ValueFromPipelineByPropertyName=$true,
-            Mandatory=$true
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
         )]
         [string]$CardNumber
     )
@@ -57,8 +57,8 @@ function Invoke-GrantAccess {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id/state?command=grant-access&cardNumber=$Cardnumber"
+        if($DoorId) {
+            $uri = "$uri/$DoorId/state?command=grant-access&cardNumber=$Cardnumber"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"

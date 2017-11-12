@@ -24,9 +24,12 @@ function Get-ActionTrigger {
             ValueFromPipelineByPropertyName=$true
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
-
-        [Parameter()]
-        [int]$Id,
+        
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$ActionTriggerId,
 
         [Parameter()]
         [ValidateRange(1,250)]
@@ -53,8 +56,8 @@ function Get-ActionTrigger {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($ActionTriggerId) {
+            $uri = "$uri/$ActionTriggerId"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"
@@ -71,7 +74,7 @@ function Get-ActionTrigger {
         $response = Invoke-RestMethod @message
         $response | ForEach-Object {
             New-Object -TypeName PSObject -Property @{
-                Id=$_.id;
+                ActionTriggerId=$_.id;
                 Name=$_.name;
             }
         }

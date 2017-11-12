@@ -25,8 +25,11 @@ function Get-Door {
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
-        [Parameter()]
-        [int]$Id,
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$DoorId,
 
         [Parameter()]
         [ValidateRange(1,250)]
@@ -53,8 +56,8 @@ function Get-Door {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($DoorId) {
+            $uri = "$uri/$DoorId"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"
@@ -71,7 +74,7 @@ function Get-Door {
         $response = Invoke-RestMethod @message
         $response | ForEach-Object {
             New-Object -TypeName PSObject -Property @{
-                Id=$_.id;
+                DoorId=$_.id;
                 Name=$_.name;
                 State=$_.state;
                 ReaderTamper=$_.readerTemper;

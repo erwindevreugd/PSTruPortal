@@ -25,13 +25,22 @@ function Get-Person {
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
-        [Parameter()]
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
         [string]$FirstName,
 
-        [Parameter()]
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
         [string]$MiddleName,
 
-        [Parameter()]
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
         [string]$LastName,
 
         [Parameter()]
@@ -84,7 +93,7 @@ function Get-Person {
         $response = Invoke-RestMethod @message
         $response | ForEach-Object {
             New-Object -TypeName PSObject -Property @{
-                Id=$_.id;
+                PersonId=$_.id;
                 FirstName=$_.firstname;
                 MiddleName=$_.middlename;
                 LastName=$_.lastname;

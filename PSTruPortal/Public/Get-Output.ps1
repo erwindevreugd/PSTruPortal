@@ -25,8 +25,11 @@ function Get-Output {
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
-        [Parameter()]
-        [int]$Id,
+        [Parameter(
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int]$OutputId,
 
         [Parameter()]
         [ValidateRange(1,250)]
@@ -52,8 +55,8 @@ function Get-Output {
             limit=$Limit;
         }
 
-        if($Id) {
-            $uri = "$uri/$Id"
+        if($OutputId) {
+            $uri = "$uri/$OutputId"
         }
 
         Write-Verbose -Message "$($method) $($uri) $($contentType)"
@@ -70,7 +73,7 @@ function Get-Output {
         $response = Invoke-RestMethod @message
         $response | ForEach-Object {
             New-Object -TypeName PSObject -Property @{
-                Id=$_.id;
+                OutputId=$_.id;
                 Name=$_.name;
                 State=$_.state;
             }
