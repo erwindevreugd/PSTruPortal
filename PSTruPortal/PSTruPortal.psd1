@@ -4,7 +4,7 @@
     RootModule = 'PSTruPortal.psm1'
     
     # Version number of this module.
-    ModuleVersion = '1.0.0'
+    ModuleVersion = '2.0.0'
     
     # ID used to uniquely identify this module
     GUID = '2fad793b-41bf-4236-afc1-44a345bf8f30'
