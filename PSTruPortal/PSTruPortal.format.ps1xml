@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <ViewDefinitions>
+
+    <!-- 
+    
+    -->
+    <View>
+      <Name></Name>
+      <ViewSelectedBy>
+        <TypeName></TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+            <TableColumnHeader>
+                <Width>40</Width>
+            </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+            <TableRowEntry>
+                <TableColumnItems>
+                    <TableColumnItem>
+                        <PropertyName>Credential</PropertyName>
+                    </TableColumnItem>
+                </TableColumnItems>
+            </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+
+  </ViewDefinitions>
+</Configuration>
