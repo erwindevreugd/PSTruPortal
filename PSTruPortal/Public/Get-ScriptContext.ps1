@@ -18,9 +18,6 @@ function Get-SessionKeyFromScriptContext {
     param (
     )
     
-    begin {
-    }
-    
     process {
 
         $properties = @{
@@ -33,8 +30,5 @@ function Get-SessionKeyFromScriptContext {
         }
 
         New-Object -TypeName PSObject -Property $properties
-    }
-    
-    end {
     }
 }

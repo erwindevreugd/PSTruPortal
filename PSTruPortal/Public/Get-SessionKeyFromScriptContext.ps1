@@ -17,10 +17,7 @@ function Get-SessionKeyFromScriptContext {
     [CmdletBinding()]
     param (
     )
-    
-    begin {
-    }
-    
+
     process {
 
         $properties = @{
@@ -28,8 +25,5 @@ function Get-SessionKeyFromScriptContext {
         }
 
         New-Object -TypeName PSObject -Property $properties
-    }
-    
-    end {
     }
 }

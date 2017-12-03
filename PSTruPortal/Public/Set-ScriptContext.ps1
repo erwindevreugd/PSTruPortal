@@ -52,7 +52,6 @@ function Set-ScriptContext {
     )
     
     process {
-
         $Script:Host=$Host
         $Script:Username=$Username
         $Script:SessionKey=$SessionKey
