@@ -17,7 +17,6 @@ function Invoke-LogoutUser {
     [CmdletBinding()]
     param (
         [Parameter(
-            Position=0, 
             Mandatory=$false,
             ValueFromPipelineByPropertyName=$true,
             HelpMessage="The hostname or ip address of the controller."
@@ -25,7 +24,6 @@ function Invoke-LogoutUser {
         [string]$Host = $Script:Host,
 
         [Parameter(
-            Position=1, 
             Mandatory=$false,
             ValueFromPipelineByPropertyName=$true,
             HelpMessage="The session key associated with an username to logout."

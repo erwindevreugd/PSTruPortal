@@ -16,8 +16,7 @@
 function Set-Credential {
     [CmdletBinding()]
     param (
-        [Parameter(
-            Position=0, 
+        [Parameter( 
             Mandatory=$false,
             ValueFromPipelineByPropertyName=$true,
             HelpMessage="The hostname or ip address of the controller."
@@ -25,7 +24,6 @@ function Set-Credential {
         [string]$Host = $Script:Host,
 
         [Parameter(
-            Position=1, 
             Mandatory=$false,
             ValueFromPipelineByPropertyName=$true,
             HelpMessage="The session key used to authenticate to the controller."

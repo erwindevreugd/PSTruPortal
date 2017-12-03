@@ -17,7 +17,6 @@ function Set-ScriptContext {
     [CmdletBinding()]
     param (
         [Parameter(
-            Position=0, 
             Mandatory=$false,
             ValueFromPipelineByPropertyName=$true,
             HelpMessage="The hostname or ip address of the controller."

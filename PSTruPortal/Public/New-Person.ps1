@@ -17,7 +17,6 @@ function New-Person {
     [CmdletBinding()]
     param (
         [Parameter(
-            Position=0, 
             Mandatory=$false,
             ValueFromPipelineByPropertyName=$true,
             HelpMessage="The hostname or ip address of the controller."
@@ -25,7 +24,6 @@ function New-Person {
         [string]$Host = $Script:Host,
 
         [Parameter(
-            Position=1, 
             Mandatory=$false,
             ValueFromPipelineByPropertyName=$true,
             HelpMessage="The session key used to authenticate to the controller."
