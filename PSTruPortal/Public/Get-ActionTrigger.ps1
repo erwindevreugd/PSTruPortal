@@ -99,7 +99,7 @@ function Get-ActionTrigger {
             New-Object -TypeName PSObject -Property @{
                 ActionTriggerId=$_.id;
                 Name=$_.name;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.ActionTrigger"
         }
     }
 

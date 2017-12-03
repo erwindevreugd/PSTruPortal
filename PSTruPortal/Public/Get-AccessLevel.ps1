@@ -99,7 +99,7 @@ function Get-AccessLevel {
             New-Object -TypeName PSObject -Property @{
                 AccessLevelId=$_.id;
                 Name=$_.name;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.AccessLevel"
         }
     }
 

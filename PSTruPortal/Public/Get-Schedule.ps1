@@ -101,7 +101,7 @@ function Get-Schedule {
                 Name=$_.name;
                 Intervals=$_.intervals;
                 Holidays=$_.holidays;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.Schedule"
         }
     }
 

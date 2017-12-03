@@ -99,7 +99,7 @@ function Get-Holiday {
             New-Object -TypeName PSObject -Property @{
                 HolidayId=$_.id;
                 Name=$_.name;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.Holiday"
         }
     }
 

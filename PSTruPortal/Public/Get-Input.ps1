@@ -99,7 +99,7 @@ function Get-Input {
                 InputId=$_.id;
                 Name=$_.name;
                 State=$_.state;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.Input"
         }
     }
 

@@ -99,7 +99,7 @@ function Get-ReaderGroup {
             New-Object -TypeName PSObject -Property @{
                 ReaderGroupId=$_.id;
                 Name=$_.name;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.ReaderGroup"
         }
     }
 

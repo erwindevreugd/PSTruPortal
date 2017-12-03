@@ -144,7 +144,7 @@ function Get-Event {
                 DeviceName=$_.deviceName;
                 Timestamp=$_.timestamp;
                 DateTime=([DateTime]"1/1/1970").AddSeconds($_.timestamp)
-            }
+            } | Add-ObjectType -TypeName "TruPortal.Event"
         }
     }
 

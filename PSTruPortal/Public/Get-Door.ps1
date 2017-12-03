@@ -103,7 +103,7 @@ function Get-Door {
                 ReaderTamper=$_.readerTemper;
                 RequestToExitTamper=$_.rteTamper;
                 AuxiliaryTamper=$_.auxTamper;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.Door"
         }
     }
 

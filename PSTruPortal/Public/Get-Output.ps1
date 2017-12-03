@@ -99,7 +99,7 @@ function Get-Output {
                 OutputId=$_.id;
                 Name=$_.name;
                 State=$_.state;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.Output"
         }
     }
 

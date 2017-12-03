@@ -118,7 +118,7 @@ function Get-Credential {
                 PersonId=$_.PersonId;
                 ExtendedAccess=$_.extendedAccess;
                 IssueCode=$_.issueCode;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.Credential"
         }
     }
 

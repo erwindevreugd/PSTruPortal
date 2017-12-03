@@ -123,7 +123,7 @@ function Get-Person {
                 MiddleName=$_.middlename;
                 LastName=$_.lastname;
                 UserDefinedFields=$_.userDefinedFields;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.Person"
         }
     }
 

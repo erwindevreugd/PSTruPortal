@@ -99,7 +99,7 @@ function Get-Reader {
             New-Object -TypeName PSObject -Property @{
                 ReaderId=$_.id;
                 Name=$_.name;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.Reader"
         }
     }
 

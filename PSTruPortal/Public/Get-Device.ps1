@@ -99,7 +99,7 @@ function Get-Device {
             New-Object -TypeName PSObject -Property @{
                 DeviceId=$_.id;
                 Name=$_.name;
-            }
+            } | Add-ObjectType -TypeName "TruPortal.Device"
         }
     }
 
