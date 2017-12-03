@@ -14,7 +14,10 @@
     https://github.com/erwindevreugd/PSThruPortal
 #>
 function Remove-AccessLevel {
-    [CmdletBinding()]
+    [CmdletBinding(
+        SupportsShouldProcess,
+        ConfirmImpact="High"
+    )]
     param (
         [Parameter(
             Position=0, 
@@ -50,7 +53,13 @@ function Remove-AccessLevel {
             ValueFromPipelineByPropertyName=$true,
             HelpMessage="The id of the access level to remove."
         )]
-        [int]$AccessLevelId
+        [int]$AccessLevelId,
+
+        [Parameter(
+            Mandatory=$false, 
+            ValueFromPipelineByPropertyName=$false,
+            HelpMessage='Forces the removal of the access level with out displaying a should process.')]
+        [switch]$Force
     )
     
     begin {
@@ -87,7 +96,9 @@ function Remove-AccessLevel {
             Headers=$headers;
             UseBasicParsing=$true;
         }
-        Invoke-RestMethod @message | Out-Null
+        if($Force -or $PSCmdlet.ShouldProcess("$Host", "Removing AccessLevel: $($AccessLevelId)")) {
+            Invoke-RestMethod @message | Out-Null
+        }
     }
     
     end {

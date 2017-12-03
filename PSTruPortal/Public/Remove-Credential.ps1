@@ -14,7 +14,10 @@
     https://github.com/erwindevreugd/PSThruPortal
 #>
 function Remove-Credential {
-    [CmdletBinding()]
+    [CmdletBinding(
+        SupportsShouldProcess,
+        ConfirmImpact="High"
+    )]
     param (
         [Parameter(
             Position=0, 
@@ -50,7 +53,13 @@ function Remove-Credential {
             ValueFromPipelineByPropertyName=$true,
             HelpMessage="The id of the credential to remove."
         )]
-        [int]$CredentialId
+        [int]$CredentialId,
+
+        [Parameter(
+            Mandatory=$false, 
+            ValueFromPipelineByPropertyName=$false,
+            HelpMessage='Forces the removal of the credential with out displaying a should process.')]
+        [switch]$Force
     )
     
     begin {
@@ -87,7 +96,9 @@ function Remove-Credential {
             Headers=$headers;
             UseBasicParsing=$true;
         }
-        Invoke-RestMethod @message | Out-Null
+        if($Force -or $PSCmdlet.ShouldProcess("$Host", "Removing Credential: $($CredentialId)")) {
+            Invoke-RestMethod @message | Out-Null
+        }
     }
     
     end {

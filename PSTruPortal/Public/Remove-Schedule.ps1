@@ -14,7 +14,10 @@
     https://github.com/erwindevreugd/PSThruPortal
 #>
 function Remove-Schedule {
-    [CmdletBinding()]
+    [CmdletBinding(
+        SupportsShouldProcess,
+        ConfirmImpact="High"
+    )]
     param (
         [Parameter(
             Position=0, 
@@ -50,7 +53,13 @@ function Remove-Schedule {
             ValueFromPipelineByPropertyName=$true,
             HelpMessage="The id of the schedule to remove."
         )]
-        [int]$ScheduleId
+        [int]$ScheduleId,
+
+        [Parameter(
+            Mandatory=$false, 
+            ValueFromPipelineByPropertyName=$false,
+            HelpMessage='Forces the removal of the schedule with out displaying a should process.')]
+        [switch]$Force
     )
     
     begin {
@@ -87,7 +96,9 @@ function Remove-Schedule {
             Headers=$headers;
             UseBasicParsing=$true;
         }
-        Invoke-RestMethod @message | Out-Null
+        if($Force -or $PSCmdlet.ShouldProcess("$Host", "Removing Schedule: $($ScheduleId)")) {
+            Invoke-RestMethod @message | Out-Null
+        }
     }
     
     end {

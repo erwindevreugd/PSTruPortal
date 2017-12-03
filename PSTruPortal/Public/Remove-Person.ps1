@@ -14,7 +14,10 @@
     https://github.com/erwindevreugd/PSThruPortal
 #>
 function Remove-Person {
-    [CmdletBinding()]
+    [CmdletBinding(
+        SupportsShouldProcess,
+        ConfirmImpact="High"
+    )]
     param (
         [Parameter(
             Position=0, 
@@ -50,7 +53,13 @@ function Remove-Person {
             ValueFromPipelineByPropertyName=$true,
             HelpMessage="The id of the person to remove."
         )]
-        [int]$PersonId
+        [int]$PersonId,
+
+        [Parameter(
+            Mandatory=$false, 
+            ValueFromPipelineByPropertyName=$false,
+            HelpMessage='Forces the removal of the person with out displaying a should process.')]
+        [switch]$Force
     )
     
     begin {
@@ -87,7 +96,9 @@ function Remove-Person {
             Headers=$headers;
             UseBasicParsing=$true;
         }
-        Invoke-RestMethod @message | Out-Null
+        if($Force -or $PSCmdlet.ShouldProcess("$Host", "Removing Person: $($PersonId)")) {
+            Invoke-RestMethod @message | Out-Null
+        }
     }
     
     end {
