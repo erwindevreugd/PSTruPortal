@@ -1,33 +1,55 @@
+<#
+    .SYNOPSIS
+    Sets the script context variables.
+
+    .DESCRIPTION   
+    Sets the script context variables.
+    
+    If the result return null, try the parameter "-Verbose" to get more details.
+    
+    .EXAMPLE
+    Set-ScriptContext
+    
+    .LINK
+    https://github.com/erwindevreugd/PSThruPortal
+#>
 function Set-ScriptContext {
     [CmdletBinding()]
     param (
         [Parameter(
-            Mandatory=$true,
-            ValueFromPipelineByPropertyName=$true
+            Position=0, 
+            Mandatory=$false,
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="The hostname or ip address of the controller."
         )]
-        [string]$Host,
+        [string]$Host = $Script:Host,
 
         [Parameter(
             Mandatory=$true,
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="The username."
         )]
         [string]$Username,
 
         [Parameter(
             Mandatory=$true,
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="The session key."
         )]
         [string]$SessionKey,
 
         [Parameter(
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="Use a secure connection to the controller."
         )]
-        [switch]$UseSSL,
+        [switch]$UseSSL = $Script:UseSSL,
 
         [Parameter(
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="Allows a connection to be made to the controller even if the certificate on the controller is invalid. 
+            Set this switch if the controller uses a self-signed certificate."
         )]
-        [switch]$IgnoreCertificateErrors
+        [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors
     )
     
     process {

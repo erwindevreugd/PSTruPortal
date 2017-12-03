@@ -1,55 +1,81 @@
+<#
+    .SYNOPSIS
+    Gets multiple events or a single event if a event id is specified.
+
+    .DESCRIPTION   
+    Gets multiple events or a single event if a event id is specified.
+    
+    If the result return null, try the parameter "-Verbose" to get more details.
+    
+    .EXAMPLE
+    Get-Event
+    
+    .LINK
+    https://github.com/erwindevreugd/PSThruPortal
+#>
 function Get-Event {
     [CmdletBinding()]
     param (
         [Parameter(
             Position=0, 
             Mandatory=$false,
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="The hostname or ip address of the controller."
         )]
         [string]$Host = $Script:Host,
 
         [Parameter(
             Position=1, 
             Mandatory=$false,
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="The session key used to authenticate to the controller."
         )]
         [string]$SessionKey = $Script:SessionKey,
 
         [Parameter(
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="Use a secure connection to the controller."
         )]
         [switch]$UseSSL = $Script:UseSSL,
 
         [Parameter(
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="Allows a connection to be made to the controller even if the certificate on the controller is invalid. 
+            Set this switch if the controller uses a self-signed certificate."
         )]
         [switch]$IgnoreCertificateErrors = $Script:IgnoreCertificateErrors,
 
         [Parameter(
             Mandatory=$false,
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="The id of the event."
         )]
         [int]$EventId,
 
         [Parameter(
             Mandatory=$false,
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="The type of events to retrieve."
         )]
         [int]$EventType,
 
         [Parameter(
             Mandatory=$false,
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="The person id for which to retrieve events."
         )]
         [int]$PersonId,
 
         [Parameter(
             Mandatory=$false,
-            ValueFromPipelineByPropertyName=$true
+            ValueFromPipelineByPropertyName=$true,
+            HelpMessage="The device id for which to retrieve events."
         )]
         [int]$DeviceId,
 
-        [Parameter()]
+        [Parameter(
+            HelpMessage="The maximum number of results to return. The maximum number of results that can be returned by a single request is 250."
+        )]
         [ValidateRange(1,250)]
         [int]$Limit = 250
     )

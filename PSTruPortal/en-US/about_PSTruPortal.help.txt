@@ -1,0 +1,17 @@
+TOPIC
+    about_PSTruPortal
+
+SHORT DESCRIPTION
+    A PowerShell module for the Interlogix TruPortal API.
+
+LONG DESCRIPTION
+    A PowerShell module for the Interlogix TruPortal API.
+
+EXAMPLES
+    
+
+KEYWORDS
+    Interlogix TruPortal PowerShell
+
+SEE ALSO
+    Get-Command -Module PSTruPortal
