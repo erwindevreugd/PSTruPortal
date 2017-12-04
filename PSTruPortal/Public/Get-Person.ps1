@@ -97,7 +97,10 @@ function Get-Person {
                 FirstName=$_.firstname;
                 MiddleName=$_.middlename;
                 LastName=$_.lastname;
-                UserDefinedFields=$_.userDefinedFields;
+                UserDefinedFields=$_.userDefinedFields | 
+                    ForEach-Object { New-Object -TypeName PSObject -Property @{ 
+                        Id=$_.id;
+                        Data=$_.data; } }
             }
         }
     }

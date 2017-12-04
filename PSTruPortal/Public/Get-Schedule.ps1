@@ -76,7 +76,11 @@ function Get-Schedule {
             New-Object -TypeName PSObject -Property @{
                 ScheduleId=$_.id;
                 Name=$_.name;
-                Intervals=$_.intervals;
+                Intervals=$_.intervals | 
+                    ForEach-Object { New-Object -TypeName PSObject -Property @{ 
+                        Start=$_.start;
+                        End=$_.end;
+                        DaysOfTheWeek=$_.daysOfTheWeek; } }
                 Holidays=$_.holidays;
             }
         }

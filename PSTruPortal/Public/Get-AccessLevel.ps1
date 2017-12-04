@@ -76,6 +76,14 @@ function Get-AccessLevel {
             New-Object -TypeName PSObject -Property @{
                 AccessLevelId=$_.id;
                 Name=$_.name;
+                ReaderGroupSchedules=$_.readerGroupSchedules | 
+                    ForEach-Object { New-Object -TypeName PSObject -Property @{ 
+                        ReaderGroupId=$_.readerGroupId; 
+                        ScheduleId=$_.scheduleId; } }
+                ReaderSchedules=$_.readerSchedules | 
+                    ForEach-Object { New-Object -TypeName PSObject -Property @{ 
+                        ReaderId=$_.readerId; 
+                        ScheduleId=$_.scheduleId; } }
             }
         }
     }
